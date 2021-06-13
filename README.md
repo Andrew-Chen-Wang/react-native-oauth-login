@@ -45,7 +45,12 @@ Run instructions for macOS:
 ---
 ### Tutorial
 
-#### Section 1 - Installing and setting up the prerequisites
+In this tutorial, I've split it up into sections. Each section
+has a dropdown toggle button so that you can close sections you've
+already completed.
+
+<details open>
+<summary><strong>Section 1 - Installing and setting up the prerequisites</strong></summary>
 
 Assuming you have a React Native app already set up:
 
@@ -108,6 +113,7 @@ Assuming you have a React Native app already set up:
    specify a redirect uri that is very specific to a domain. Read up on a slightly better yet still
    confusing explanation and example here: 
    https://github.com/openid/AppAuth-android#capturing-the-authorization-redirect
+   You may also want to read this note as well: https://github.com/FormidableLabs/react-native-app-auth/tree/main/Example#notes
    A small snippet from that URL: 
    We recommend using a custom scheme based redirect URI (i.e. those of form my.scheme:/path), as this is the most 
    widely supported across all versions of Android. To avoid conflicts with other apps, it is recommended to 
@@ -135,9 +141,56 @@ Assuming you have a React Native app already set up:
    ```
 
 </details>
+</details>
+
+<details open>
+<summary><strong>
+Section 2 - Setup your provider and consumer
+</strong></summary>
+
+1. Go to https://github.com/Andrew-Chen-Wang/django-social-provider-and-consumer-tutorial
+   to set up your OAuth provider and mobile consumer. Follow the steps there
+   to grab a Provider/server and a Consumer/mobile-consumer.
+
+</details>
+
+<details open>
+<summary><strong>
+Section 3 - Implementation
+</strong></summary>
+
+1. I'm using the example React Native app that FormidableLabs (the authors of react-native-app-auth provides).
+   Don't worry; we're going to customize the code for authentication. It's mostly because I'm lazy, but I only copied 
+   [`App.js`](https://github.com/FormidableLabs/react-native-app-auth/blob/main/Example/App.js) and
+   [`components` directory](https://github.com/FormidableLabs/react-native-app-auth/tree/main/Example/components) for 
+   their design: https://github.com/FormidableLabs/react-native-app-auth/tree/main/Example
+1. I've changed `Page.js` to avoid the random background image from the assets folder. If you copy
+   the `assets` folder too, you won't need to change `Page.js`:
+   ```jsx
+   const Page = ({children}) => (
+      <SafeAreaView style={styles.safe}>{children}</SafeAreaView>
+   );
+   ```
+1. Go to `App.js`. We're going to add our configurations. Replace the values in the `config`
+   variable with whatever you need. If you still don't understand the redirect uri,
+   read this note: https://github.com/FormidableLabs/react-native-app-auth/tree/main/Example#notes
+1. Find every instance in App.js where the function `handleAuthorize` is used. 
+   Replace whatever the value is inside with your config key value (mine was custom)
+
+</details>
+
+Great, you're done! What you'll probably want to do next is implement an
+automatic refresh token mechanism on app start and throughout your app
+lifecycle.
+
+In this tutorial, we did not utilize `react-native-keychain`, instead, opting
+for using a JS Object for simplicity. These tokens must be kept a secret,
+and the device's built-in keychain can assist with that.
 
 ---
 ### License
+
+I've licensed this repository under the Apache 2.0 License.
 
 ```
 Copyright 2021 Andrew Chen Wang
