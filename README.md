@@ -46,10 +46,10 @@ Run instructions for macOS:
 ### Tutorial
 
 In this tutorial, I've split it up into sections. Each section
-has a dropdown toggle button so that you can close sections you've
+has a dropdown toggle button so that you can open/close sections you've
 already completed.
 
-<details open>
+<details>
 <summary><strong>Section 1 - Installing and setting up the prerequisites</strong></summary>
 
 Assuming you have a React Native app already set up:
@@ -143,7 +143,7 @@ Assuming you have a React Native app already set up:
 </details>
 </details>
 
-<details open>
+<details>
 <summary><strong>
 Section 2 - Setup your provider and consumer
 </strong></summary>
@@ -154,7 +154,7 @@ Section 2 - Setup your provider and consumer
 
 </details>
 
-<details open>
+<details>
 <summary><strong>
 Section 3 - Implementation
 </strong></summary>
