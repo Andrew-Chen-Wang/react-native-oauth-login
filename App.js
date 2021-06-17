@@ -19,21 +19,20 @@ import {
 const configs = {
   custom: {
     issuer: 'http://localhost:8001',
-    clientId: 'YOUR_CLIENT_ID',
+    clientId: 'wOzvSUDj4oWKOVJbiapZsZSEj6eqWjwhRFAtTBm1',
     // The syntax for this is: <Android redirect url>:/<actual URL redirect path>
     // redirect uri is from our mobile consumer tutorial
     // ref: https://django-oauth-toolkit.readthedocs.io/en/latest/tutorial/tutorial_01.html#create-an-oauth2-client-application
-    redirectUrl:
-      'com.oauthlogin.auth:http://localhost:8000/custom/login/callback/',
+    redirectUrl: 'com.oauthlogin.auth://custom/login/callback/',
     additionalParameters: {},
     scopes: [
       'openid' /* The additional scopes you set in the provider: 'profile', 'email'*/,
     ],
     // You can find these endpoints in oauth2_provider.urls
     serviceConfiguration: {
-      authorizationEndpoint: 'http://localhost:8001/o/authorize',
-      tokenEndpoint: 'http://localhost:8001/o/token',
-      revocationEndpoint: 'http://localhost:8001/o/revoke_token',
+      authorizationEndpoint: 'http://localhost:8001/o/authorize/',
+      tokenEndpoint: 'http://localhost:8001/o/token/',
+      revocationEndpoint: 'http://localhost:8001/o/revoke_token/',
     },
   },
 };

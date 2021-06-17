@@ -181,7 +181,9 @@ Section 3 - Implementation
 
 Great, you're done! What you'll probably want to do next is implement an
 automatic refresh token mechanism on app start and throughout your app
-lifecycle.
+lifecycle. Take a look at [my mobile-auth-example](https://github.com/Andrew-Chen-Wang/mobile-auth-example)
+to see what I mean using Swift and Kotlin (the native languages for their
+respective OS's).
 
 In this tutorial, we did not utilize `react-native-keychain`, instead, opting
 for using a JS Object for simplicity. These tokens must be kept a secret,
