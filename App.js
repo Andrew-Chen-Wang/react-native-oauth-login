@@ -42,7 +42,12 @@ const defaultAuthState = {
   provider: '',
   accessToken: '',
   accessTokenExpirationDate: '',
+  // Refresh tokens don't expire for OAuth providers
+  // since we don't save username password here
   refreshToken: '',
+  // These tokens are for your actual backend/consumer, not the provider's
+  appAccessToken: '',
+  appRefreshToken: '',
 };
 
 const App = () => {
@@ -60,11 +65,31 @@ const App = () => {
       const config = configs[provider];
       const newAuthState = await authorize(config);
 
-      setAuthState({
-        hasLoggedInOnce: true,
-        provider: provider,
-        ...newAuthState,
-      });
+      fetch('http://localhost:8000/api/token/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_token: newAuthState.accessToken,
+          refresh_token: newAuthState.refreshToken,
+        }),
+      })
+        .then(response => {
+          console.log(response);
+          return response.json();
+        })
+        .then(json => {
+          setAuthState({
+            hasLoggedInOnce: true,
+            provider: provider,
+            appAccessToken: json.access_token,
+            appRefreshToken: json.refresh_token,
+            ...newAuthState,
+          });
+        })
+        .catch(error => console.error(error));
     } catch (error) {
       Alert.alert('Failed to log in', error.message);
     }
@@ -120,12 +145,16 @@ const App = () => {
     <Page>
       {authState.accessToken ? (
         <Form>
-          <FormLabel>accessToken</FormLabel>
+          <FormLabel>Provider Access Token</FormLabel>
           <FormValue>{authState.accessToken}</FormValue>
           <FormLabel>accessTokenExpirationDate</FormLabel>
           <FormValue>{authState.accessTokenExpirationDate}</FormValue>
-          <FormLabel>refreshToken</FormLabel>
+          <FormLabel>Provider Refresh Token</FormLabel>
           <FormValue>{authState.refreshToken}</FormValue>
+          <FormLabel>Consumer Access Token</FormLabel>
+          <FormValue>{authState.appAccessToken}</FormValue>
+          <FormLabel>Consumer Refresh Token</FormLabel>
+          <FormValue>{authState.appRefreshToken}</FormValue>
           <FormLabel>scopes</FormLabel>
           <FormValue>{authState.scopes.join(', ')}</FormValue>
         </Form>

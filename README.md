@@ -176,6 +176,11 @@ Section 3 - Implementation
    read this note: https://github.com/FormidableLabs/react-native-app-auth/tree/main/Example#notes
 1. Find every instance in App.js where the function `handleAuthorize` is used. 
    Replace whatever the value is inside with your config key value (mine was custom)
+1. Then run the app! Make sure your mobile consumer and provider are up. 
+   `npm run ios` or `npm run android`. It should look like this after signing
+   up a user on your provider first (since you're logging in from the provider):
+   
+![](./assets/app.png)
 
 </details>
 
