@@ -80,8 +80,11 @@ Assuming you have a React Native app already set up:
     
    + @property(nonatomic, weak)id<RNAppAuthAuthorizationFlowManagerDelegate>authorizationFlowManagerDelegate;
    ```
-1. Add the following code to `AppDelegate.m` (to support iOS <= 10 and React Navigation deep linking):
+1. Add the following code to `AppDelegate.m` (to support iOS <= 10 or React Navigation deep linking):
    ```diff
+   // Add to top, below the line #import <React/RCTBundleURLProvider.h>
+   + #import <React/RCTLinkingManager.h>
+   // Add this somewhere after application:(UIApplication *)
    + - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *) options {
    +  if ([self.authorizationFlowManagerDelegate resumeExternalUserAgentFlowWithURL:url]) {
    +    return YES;
